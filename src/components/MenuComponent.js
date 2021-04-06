@@ -1,27 +1,28 @@
-import React, {Component} from 'react';
-import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap';
+import React from 'react';
+import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
-class Menu extends Component{
-    // eslint-disable-next-line no-useless-constructor
-    constructor(props){
-        super(props);
+    function RenderMenuItem ({dish, onClick}) {
+        return (
+            <Card
+                onClick={() => onClick(dish.id)}>
+                <CardImg width="100%" src={dish.image} alt={dish.name} />
+                <CardImgOverlay>
+                    <CardTitle>{dish.name}</CardTitle>
+                </CardImgOverlay>
+            </Card>
+        );
     }
 
-    render(){
+    const Menu = (props) => {
 
-        const menu = this.props.dishes.map((dish) =>{
+        const menu = props.dishes.map((dish) => {
             return (
-                <div key={dish.id} className="col-12 col-md-5 mt-5">
-                    <Card key={dish.id}
-                        onClick={() => this.props.onClick(dish.id)}>
-                        <CardImg width="100%" src={dish.image} alt={dish.name}/>
-                        <CardImgOverlay>
-                            <CardTitle>{dish.name}</CardTitle>
-                        </CardImgOverlay>
-                    </Card>
+                <div className="col-12 col-md-5 m-1"  key={dish.id}>
+                    <RenderMenuItem dish={dish} onClick={props.onClick} />
                 </div>
             );
         });
+
         return (
             <div className="container">
                 <div className="row">
@@ -30,6 +31,5 @@ class Menu extends Component{
             </div>
         );
     }
-}
 
 export default Menu;
